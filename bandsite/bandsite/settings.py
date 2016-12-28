@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bandmanager.apps.BandmanagerConfig'
 ]
 
 MIDDLEWARE = [
@@ -76,11 +77,11 @@ WSGI_APPLICATION = 'bandsite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'BandManagerDatabase',
-        'HOST': 'bandmanagerdatabase.cgpcwklvtbcv.us-west-2.rds.amazonaws.com',
+        'NAME': 'BandManager',
+        'HOST': 'bandmanagerdb.cgpcwklvtbcv.us-west-2.rds.amazonaws.com',
         'PORT': '3306',
-        'USER': 'jaun_chunk',
-        'PASSWORD': 'Bilbo55%',
+        'USER': 'JuanChunk',
+        'PASSWORD': 'rabbitslayer777',
     }
 }
 
