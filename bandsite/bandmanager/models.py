@@ -36,9 +36,18 @@ class Task(models.Model):
 		return self.title
 
 @python_2_unicode_compatible
+class ProgressMapping(models.Model):
+		label = models.CharField(max_length=100)
+
+		def __str__(self):
+			return self.label
+
+@python_2_unicode_compatible
 class Song(models.Model):
 	band = models.ForeignKey(Band, on_delete=models.CASCADE)
 	title = models.CharField(max_length=100)
+	label = models.ForeignKey(ProgressMapping, default=1)
+
 
 	def __str__(self):
 		return self.title
