@@ -20,6 +20,6 @@ from django.contrib import admin
 ## my site url right to bandmanager
 
 urlpatterns = [
-	url(r'^$', include('bandmanager.urls')),
+	url(r'^', include('bandmanager.urls')),
     url(r'^admin/', admin.site.urls),
 ]

@@ -10,6 +10,7 @@ class Band(models.Model):
 	name = models.CharField(max_length=100)
 	website = models.CharField(max_length=200, blank=True)
 	contact_info = models.CharField(max_length=200)
+	picture_url = models.CharField(max_length=200, blank=True)
 
 	def __str__(self):
 		return self.name
@@ -19,6 +20,7 @@ class Member(models.Model):
 	band = models.ForeignKey(Band, on_delete=models.CASCADE)
 	name = models.CharField(max_length=100)
 	contact_info = models.CharField(max_length=200, blank=True)
+	picture_url = models.CharField(max_length=200, blank=True)
 
 	def __str__(self):
 		 return self.name
@@ -36,17 +38,10 @@ class Task(models.Model):
 		return self.title
 
 @python_2_unicode_compatible
-class ProgressMapping(models.Model):
-		label = models.CharField(max_length=100)
-
-		def __str__(self):
-			return self.label
-
-@python_2_unicode_compatible
 class Song(models.Model):
 	band = models.ForeignKey(Band, on_delete=models.CASCADE)
 	title = models.CharField(max_length=100)
-	label = models.ForeignKey(ProgressMapping, default=1)
+	progress = models.IntegerField(default=0)
 
 
 	def __str__(self):
