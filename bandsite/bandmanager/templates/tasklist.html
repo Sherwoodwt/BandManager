@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Task List</title>
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+    <body>
+        {%if band%}
+        <div class="jumbotron">
+            <div class="container">
+                <h1>{{ band }}</h1>
+            </div>
+        </div>
+
+        
+        <ul class="list-group">
+            {%for task in tasks%}
+            <a href="#">
+                <li class="list-group-item">{{task}}</li>
+            </a>
+            {%endfor%}
+        </ul>
+        
+        {%else%}
+            <p>No band selected</p>
+        {%endif%}
+    </body>
+</html>
