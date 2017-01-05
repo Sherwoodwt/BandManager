@@ -46,6 +46,15 @@ class Task(models.Model):
 
 
 @python_2_unicode_compatible
+class TaskComment(models.Model):
+	task = models.ForeignKey(Task, on_delete=models.CASCADE)
+	body = models.CharField(max_length=500)
+
+	def __str__(self):
+		return self.body
+
+
+@python_2_unicode_compatible
 class Song(models.Model):
 	band = models.ForeignKey(Band, on_delete=models.CASCADE)
 	title = models.CharField(max_length=100)
