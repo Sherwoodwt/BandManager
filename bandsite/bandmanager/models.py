@@ -15,15 +15,22 @@ class Band(models.Model):
 	def __str__(self):
 		return self.name
 
+
 @python_2_unicode_compatible
 class Member(models.Model):
 	band = models.ForeignKey(Band, on_delete=models.CASCADE)
 	name = models.CharField(max_length=100)
 	contact_info = models.CharField(max_length=200, blank=True)
 	picture_url = models.CharField(max_length=200, blank=True)
+	active = models.BooleanField(default=1)
 
 	def __str__(self):
-		 return self.name
+		return self.name
+
+	#Whether member is active or not, inactive used for unassigned, for instance.
+	def isActive(self):
+    		return self.active
+
 
 @python_2_unicode_compatible
 class Task(models.Model):
@@ -37,6 +44,7 @@ class Task(models.Model):
 	def __str__(self):
 		return self.title
 
+
 @python_2_unicode_compatible
 class Song(models.Model):
 	band = models.ForeignKey(Band, on_delete=models.CASCADE)
@@ -46,6 +54,7 @@ class Song(models.Model):
 
 	def __str__(self):
 		return self.title
+
 
 @python_2_unicode_compatible
 class Contact(models.Model):

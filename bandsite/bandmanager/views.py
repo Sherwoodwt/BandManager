@@ -11,7 +11,7 @@ def index(request):
 
 def band(request, band_id):
 	band = get_object_or_404(Band, pk=band_id)
-	members = band.member_set.all()
+	members = band.member_set.filter(active=1)
 	context = {"band": band, "members": members}
 	return render(request, "band.html", context)
 
