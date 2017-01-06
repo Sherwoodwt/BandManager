@@ -15,16 +15,20 @@
         
         <div class="container" style="margin-bottom: 10px">
             
-            <button type="button" class="btn btn-primary pull-right col-md-4">Add Task</button>
-            
+            <button type="button" class="btn btn-primary pull-right col-md-4" onclick="GoToAddTask()">Add Task</button>
+            <script type="text/javascript">
+                function GoToAddTask(){
+                    window.location.href="{%url 'newtask' band.id%}";
+                }
+            </script>
+
         </div>
 
         <div class="container">
             
             <div class="list-group">
                 {%for task in tasks%}
-                <a href="#" class="list-group-item">
-
+                <a href="" class="list-group-item">
                     <img src="{{task.member.picture_url}}" class="img-responsive" alt="Image">
                     <h3>{{task}}</h3>
                 </a>
