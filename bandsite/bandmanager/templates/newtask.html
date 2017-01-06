@@ -16,7 +16,9 @@
         {% if band %}
         <div class="jumbotron">
             <div class="container">
-                <h1>{{band}}</h1>
+                <a href="{%url 'band' band.id%}" style="color: inherit !important; text-decoration: none !important;">
+                    <h1>{{ band }}</h1>
+                </a>
             </div>
         </div>
         

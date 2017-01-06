@@ -8,20 +8,26 @@
         {% if band %}
         <div class="jumbotron">
             <div class="container">
-                <h1>{{ band }}</h1>
+                <a href="{%url 'band' band.id%}" style="color: inherit !important; text-decoration: none !important;">
+                    <h1>{{ band }}</h1>
+                </a>
             </div>
         </div>
         
         <div class="container">
-            <h3>Members</h3>
             <ul class="list-group">
-                {%for member in members%}
-                    <li class="list-group-item">{{member}}</li>
-                {%endfor%}
+                <div class="list-group-item">
+                    <h3>Members</h3>
+                    <ul>
+                    {%for member in members%}
+                        <li>{{member}}</li>
+                    {%endfor%}
+                    </ul>
+                </div>
+                
+                <a href="{%url 'tasklist' band.id%}" class="list-group-item"><h3>Tasks</h3></a>
+                <div class="list-group-item"><h3>Songs</h3></div>
             </ul>
-            
-            <h3><a href="{%url 'tasklist' band.id%}">Tasks</a></h3>
-            <h3>Songs</h3>
         </div>
         
         {% else %}
