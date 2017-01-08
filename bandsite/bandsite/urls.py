@@ -15,11 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.contrib.auth.views import login, logout
 
 ## since band manager is the only app I will be using right now, I am going to default
 ## my site url right to bandmanager
 
 urlpatterns = [
-	url(r'^', include('bandmanager.urls')),
+	url(r'^bandmanager/', include('bandmanager.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^login/$', login, name='login'),
 ]

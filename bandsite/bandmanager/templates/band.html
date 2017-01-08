@@ -1,38 +1,19 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Band Page</title>
-        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    </head>
-    <body>
-        {% if band %}
-        <div class="jumbotron">
-            <div class="container">
-                <a href="{%url 'band' band.id%}" style="color: inherit !important; text-decoration: none !important;">
-                    <h1>{{ band }}</h1>
-                </a>
-            </div>
-        </div>
-        
-        <div class="container">
-            <ul class="list-group">
-                <div class="list-group-item">
-                    <h3>Members</h3>
-                    <ul>
-                    {%for member in members%}
-                        <li>{{member}}</li>
-                    {%endfor%}
-                    </ul>
-                </div>
-                
-                <a href="{%url 'tasklist' band.id%}" class="list-group-item"><h3>Tasks</h3></a>
-                <div class="list-group-item"><h3>Songs</h3></div>
+{%extends 'base.html'%}
+
+{%block content%}
+    <ul class="list-group">
+        <div class="list-group-item">
+            <h3>Members</h3>
+            <ul>
+            {%for member in members%}
+                {%if member.active%}
+                    <li>{{member}}</li>
+                {%endif%}
+            {%endfor%}
             </ul>
         </div>
         
-        {% else %}
-            <p>No band selected!</p>
-        {% endif %}
-        
-    </body>
-</html>
+        <a href="{%url 'tasklist' band.id%}" class="list-group-item"><h3>Tasks</h3></a>
+        <div class="list-group-item"><h3>Songs</h3></div>
+    </ul>
+{%endblock%}

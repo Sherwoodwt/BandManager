@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -19,6 +20,7 @@ class Band(models.Model):
 @python_2_unicode_compatible
 class Member(models.Model):
 	band = models.ForeignKey(Band, on_delete=models.CASCADE)
+	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	name = models.CharField(max_length=100)
 	contact_info = models.CharField(max_length=200, blank=True)
 	picture_url = models.CharField(max_length=200, blank=True)
@@ -48,6 +50,7 @@ class Task(models.Model):
 @python_2_unicode_compatible
 class TaskComment(models.Model):
 	task = models.ForeignKey(Task, on_delete=models.CASCADE)
+	commenter = models.ForeignKey(Member, on_delete=models.CASCADE)
 	body = models.CharField(max_length=500)
 
 	def __str__(self):
