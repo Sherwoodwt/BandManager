@@ -9,12 +9,12 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 
-@login_required(redirect_field_name='login')
+@login_required(login_url='/login/')
 def index(request):
     	return HttpResponseRedirect(reverse('band'))
 
 
-@login_required(redirect_field_name='login')
+@login_required(login_url='/login/')
 def band(request):
 	user = request.user
 	band = get_object_or_404(Band, pk=user.member.band.id)
@@ -23,7 +23,7 @@ def band(request):
 	return render(request, "band.html", context)
 
 
-@login_required(redirect_field_name='login')
+@login_required(login_url='/login/')
 def tasklist(request):
 	user = request.user
 	band = get_object_or_404(Band, pk=user.member.band.id)
@@ -32,7 +32,7 @@ def tasklist(request):
 	return render(request, "tasklist.html", context)
 
 
-@login_required(redirect_field_name='login')
+@login_required(login_url='/login/')
 def newtask(request):
 	user = request.user
 	band = get_object_or_404(Band, pk=user.member.band.id)
@@ -42,7 +42,7 @@ def newtask(request):
 
 
 #handles adding new tasks from newtask page
-@login_required(redirect_field_name='login')
+@login_required(login_url='/login/')
 def addtask(request):
 	user = request.user
 	title = request.POST['TaskTitle']
@@ -66,7 +66,7 @@ def addtask(request):
 	return HttpResponseRedirect(reverse('tasklist'))
 
 
-@login_required(redirect_field_name='login')
+@login_required(login_url='/login/')
 def task(request, task_id):
 	user = request.user
 	band_id = user.member.band.id
