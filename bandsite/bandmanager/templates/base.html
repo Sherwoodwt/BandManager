@@ -9,7 +9,11 @@
             
             <div class="jumbotron">
                 <div class="container">
-                    <h1>{{band}}</h1>
+                    <h1><a href="{%url 'band'%}">{{band}}</a></h1>
+
+                    <div class="pull-right">
+                        <h4><a href="{%url 'logout'%}">logout</a></h4>
+                    </div>
                 </div>
             </div>
 
