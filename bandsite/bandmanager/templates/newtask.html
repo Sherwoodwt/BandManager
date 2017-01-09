@@ -1,7 +1,7 @@
 {%extends 'base.html'%}
 
 {%block content%}
-    <form action="{%url 'addtask' band.id %}" method="POST" role="form">
+    <form action="{%url 'addtask' %}" method="POST" role="form">
         {%csrf_token%}
         <legend>Add Task</legend>
     
@@ -28,6 +28,7 @@
         <div class="form-group">
             <label>Assignee: </label>
             <select name="TaskAssignee">
+                <option value="None">--------</option>
                 {%for member in members%}
                     <option value="{{member.pk}}">{{member}}</option>
                 {%endfor%}

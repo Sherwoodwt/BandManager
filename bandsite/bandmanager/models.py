@@ -20,7 +20,7 @@ class Band(models.Model):
 @python_2_unicode_compatible
 class Member(models.Model):
 	band = models.ForeignKey(Band, on_delete=models.CASCADE)
-	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
 	name = models.CharField(max_length=100)
 	contact_info = models.CharField(max_length=200, blank=True)
 	picture_url = models.CharField(max_length=200, blank=True)
@@ -37,7 +37,7 @@ class Member(models.Model):
 @python_2_unicode_compatible
 class Task(models.Model):
 	band = models.ForeignKey(Band, on_delete=models.CASCADE)
-	member = models.ForeignKey(Member)
+	member = models.ForeignKey(Member, null=True, blank=True)
 	title = models.CharField(max_length=100)
 	description = models.CharField(max_length=500)
 	difficulty = models.IntegerField(default=0)

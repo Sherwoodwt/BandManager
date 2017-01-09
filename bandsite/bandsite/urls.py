@@ -24,4 +24,5 @@ urlpatterns = [
 	url(r'^bandmanager/', include('bandmanager.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^login/$', login, name='login'),
+    url(r'^logout/$', logout, name='logout')
 ]

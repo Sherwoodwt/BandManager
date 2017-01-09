@@ -5,15 +5,17 @@
         <button type="button" class="btn btn-primary pull-right col-md-4" onclick="GoToAddTask()">Add Task</button>
         <script type="text/javascript">
             function GoToAddTask(){
-                window.location.href="{%url 'newtask' band.id%}";
+                window.location.href="{%url 'newtask'%}";
             }
         </script>
     </div>
 
     <div class="list-group">
         {%for task in tasks%}
-        <a href="{%url 'task' band.id task.id%}" class="list-group-item">
-            <img src="{{task.member.picture_url}}" class="img-responsive" alt="Image">
+        <a href="{%url 'task' task.id%}" class="list-group-item">
+            {%if task.member != None%}
+                <img src="{{task.member.picture_url}}" class="img-responsive" alt="Image">
+            {%endif%}
             <h3>{{task}}</h3>
         </a>
         {%endfor%}
