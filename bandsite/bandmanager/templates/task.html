@@ -2,4 +2,25 @@
 
 {%block content%}
     
+    <div>
+        <h2>{{task}}</h2>
+        <div>
+            {%if task.member != None%}
+                <img src="{{task.member.picture_url}}">
+            {%endif%}
+            <p>{{task.description}}</p>
+            <h4>Difficulty: {{task.difficulty}}</h4>
+            <h4>Priority: {{task.priority}}</h4>
+        </div>
+        {%if task.member == None%}
+            <button id="assign" class="btn btn-primary" href="{%url 'assignTask' task.id%}">Assign Task</button>
+        {%elif task.member == user.member%}
+            <button id="complete" class="btn btn-primary" href="{%url 'completeTask' task.id%}">Complete Task</button>
+            <button id="unassign" class="btn" href="{%url 'unassignTask' task.id%}">Unassign Task</button>
+            <button id="delete" class="btn btn-danger" href="{%url 'deleteTask' task.id%}">Delete Task</button>
+        {%endif%}
+
+
+    </div>
+
 {%endblock%}

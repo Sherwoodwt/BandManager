@@ -42,6 +42,7 @@ class Task(models.Model):
 	description = models.CharField(max_length=500)
 	difficulty = models.IntegerField(default=0)
 	priority = models.IntegerField(default=0)
+	completed = models.BooleanField(default=0)
 
 	def __str__(self):
 		return self.title

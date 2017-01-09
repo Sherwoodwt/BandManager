@@ -75,3 +75,50 @@ def task(request, task_id):
 	taskComments = task.taskcomment_set.all()
 	context = {"band": band, "task": task, "taskComments": taskComments}
 	return render(request, "task.html", context)
+
+
+#Task with task_id is assigned to User's member
+@login_required(login_url='/login/')
+def assignTask(request, task_id):
+	user = request.user
+	member = user.member
+	band = member.band
+	task = band.task_set.get(pk=task_id)
+	task.member = member
+	task.save()
+	return HttpResponseRedirect(reverse('task', task_id))
+
+
+#Task with task_id is marked as completed
+@login_required(login_url='/login/')
+def completeTask(request, task_id):
+	user = request.user
+	band = user.member.band
+	task = band.task_set.get(pk=task_id)
+	if(task.member == user.member):
+		task.completed = 1
+	task.save()
+	return HttpResponseRedirect(reverse('tasklist'))
+
+
+#Task with task_id is unassigned from User's member
+@login_required(login_url='/login/')
+def unassignTask(request, task_id):
+	user = request.user
+	band = user.member.band
+	task = band.task_set.get(pk=task_id)
+	if(task.member == user.member):
+		task.member = None
+	task.save()
+	return HttpResponseRedirect(reverse('task', task_id))
+
+
+#Task with task_id is deleted if User's member is assignee
+@login_required(login_url='/login/')
+def deleteTask(request, task_id):
+	user = request.user
+	band = user.member.band
+	task = band.task_set.get(pk=task_id)
+	if(task.member == user.member):
+		task.delete()
+	return HttpResponseRedirect(reverse('tasklist'))
