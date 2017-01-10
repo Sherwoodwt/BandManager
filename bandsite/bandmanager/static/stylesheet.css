@@ -1,0 +1,6 @@
+.custom-round-box{
+    width: 50px;
+    height: 50px;
+    border: 2px solid black;
+    border-radius: 12px;
+}

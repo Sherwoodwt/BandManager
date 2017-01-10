@@ -4,7 +4,7 @@ from django.urls import reverse
 
 from django.shortcuts import render, get_object_or_404
 
-from .models import Band, Task, Member
+from .models import Band, Task, Member, TaskComment
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
@@ -86,7 +86,7 @@ def assignTask(request, task_id):
 	task = band.task_set.get(pk=task_id)
 	task.member = member
 	task.save()
-	return HttpResponseRedirect(reverse('task', task_id))
+	return HttpResponseRedirect(reverse('task', args=[task_id]))
 
 
 #Task with task_id is marked as completed
@@ -110,7 +110,7 @@ def unassignTask(request, task_id):
 	if(task.member == user.member):
 		task.member = None
 	task.save()
-	return HttpResponseRedirect(reverse('task', task_id))
+	return HttpResponseRedirect(reverse('task', args=[task_id]))
 
 
 #Task with task_id is deleted if User's member is assignee
@@ -122,3 +122,14 @@ def deleteTask(request, task_id):
 	if(task.member == user.member):
 		task.delete()
 	return HttpResponseRedirect(reverse('tasklist'))
+
+#Add comment to task
+@login_required(login_url='/login/')
+def makeComment(request, task_id):
+	user = request.user
+	band = user.member.band
+	task = band.task_set.get(pk=task_id)
+	body = request.POST['BodyText']
+	comment = TaskComment(task=task, commenter=user.member, body=body)
+	comment.save()
+	return HttpResponseRedirect(reverse('task', args=[task_id]))

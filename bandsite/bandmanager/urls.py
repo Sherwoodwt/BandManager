@@ -15,4 +15,5 @@ urlpatterns = [
 	url(r'^completeTask/(?P<task_id>[0-9]+)/', views.completeTask, name='completeTask'),
 	url(r'^unassignTask/(?P<task_id>[0-9]+)/', views.unassignTask, name='unassignTask'),
 	url(r'^deleteTask/(?P<task_id>[0-9]+)/', views.deleteTask, name='deleteTask'),
+	url(r'^makeComment/(?P<task_id>[0-9]+)/', views.makeComment, name='makeComment'),
 ]

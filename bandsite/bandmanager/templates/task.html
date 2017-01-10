@@ -2,25 +2,98 @@
 
 {%block content%}
     
-    <div>
-        <h2>{{task}}</h2>
+    <div id="task-body">
         <div>
-            {%if task.member != None%}
-                <img src="{{task.member.picture_url}}">
-            {%endif%}
-            <p>{{task.description}}</p>
+            <ul class="row list-unstyled">
+                <li class="col-xs-6">
+                    {%if task.member != None%}
+                        <img src="{{task.member.picture_url}}" class="custom-round-box">
+                    {%endif%}
+                </li>
+                <li class="col-xs-6">
+                    <div class="custom-round-box pull-right">
+                        {%if task.completed%}
+                            <img src="https://s3-us-west-2.amazonaws.com/bandmanagerimages/complete.png">
+                        {%endif%}
+                    </div>
+                </li>
+            </ul>
+            
+            <div class="panel panel-default" style="margin-top: 10px;">
+                  <div class="panel-heading">
+                        <h3 class="panel-title">{{task}}</h3>
+                  </div>
+                  <div class="panel-body">
+                        <p>{{task.description}}</p>
+                  </div>
+            </div>
+            
+                
             <h4>Difficulty: {{task.difficulty}}</h4>
             <h4>Priority: {{task.priority}}</h4>
         </div>
         {%if task.member == None%}
-            <button id="assign" class="btn btn-primary" href="{%url 'assignTask' task.id%}">Assign Task</button>
+            <button id="assign" class="btn btn-primary" onclick="GoToAssignTask()">Assign Task</button>
         {%elif task.member == user.member%}
-            <button id="complete" class="btn btn-primary" href="{%url 'completeTask' task.id%}">Complete Task</button>
-            <button id="unassign" class="btn" href="{%url 'unassignTask' task.id%}">Unassign Task</button>
-            <button id="delete" class="btn btn-danger" href="{%url 'deleteTask' task.id%}">Delete Task</button>
+            {%if not task.completed%}
+                <button id="complete" class="btn btn-primary" onclick="GoToCompleteTask()">Complete Task</button>
+                <button id="unassign" class="btn" onclick="GoToUnassignTask()">Unassign Task</button>
+            {%endif%}
+            <button id="delete" class="btn btn-danger" onclick="GoToDeleteTask()">Delete Task</button>
         {%endif%}
 
+        <script type="text/javascript">
+            function GoToAssignTask(){
+                window.location.href="{%url 'assignTask' task.id%}";
+            }
 
+            function GoToCompleteTask(){
+                window.location.href="{%url 'completeTask' task.id%}";
+            }
+
+            function GoToUnassignTask(){
+                window.location.href="{%url 'unassignTask' task.id%}";
+            }
+
+            function GoToDeleteTask(){
+                window.location.href="{%url 'deleteTask' task.id%}";
+            }
+        </script>
     </div>
+
+    {%for comment in taskComments%}
+        
+        <ul class="list-unstyled" style="margin-top: 30px;">
+            <li class="col-md-1 col-xs-2">
+                <img src="{{comment.commenter.picture_url}}" class="custom-round-box">
+            </li>
+            <li class="col-md-11 col-xs-10">
+                
+                <div class="panel panel-info">
+                      <div class="panel-heading">
+                            <h3 class="panel-title">{{comment.commenter}}</h3>
+                      </div>
+                      <div class="panel-body">
+                            {{comment.body}}
+                      </div>
+                </div>
+                
+            </li>
+        </ul>
+        
+    {%endfor%}
+
+    
+    <form action="{%url 'makeComment' task.id%}" method="POST" role="form">
+        {%csrf_token%}
+        <legend>Comment</legend>
+    
+        <div class="form-group">
+            <textarea name="BodyText" class="form-control" placeholder="comment" rows="6"></textarea>
+        </div>
+    
+        <button type="submit" class="btn btn-primary pull-right">Comment</button>
+    </form>
+    
 
 {%endblock%}
