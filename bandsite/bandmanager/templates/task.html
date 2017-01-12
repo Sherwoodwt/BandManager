@@ -2,6 +2,10 @@
 
 {%block content%}
     
+    <a class="btn btn-default" href="{%url 'tasklist'%}" style="margin-bottom: 20px;">
+        Back to Tasklist
+    </a>
+    <!--Task Content-->
     <div id="task-body">
         <div>
             <ul class="row list-unstyled">
@@ -33,34 +37,18 @@
             <h4>Priority: {{task.priority}}</h4>
         </div>
         {%if task.member == None%}
-            <button id="assign" class="btn btn-primary" onclick="GoToAssignTask()">Assign Task</button>
+            <a id="assign" class="btn btn-primary" href="{%url 'assignTask' task.id%}">Assign Task</a>
         {%elif task.member == user.member%}
             {%if not task.completed%}
-                <button id="complete" class="btn btn-primary" onclick="GoToCompleteTask()">Complete Task</button>
-                <button id="unassign" class="btn" onclick="GoToUnassignTask()">Unassign Task</button>
+                <a id="complete" class="btn btn-primary" href="{%url 'completeTask' task.id%}">Complete Task</a>
+                <a id="unassign" class="btn" href="{%url 'unassignTask' task.id%}">Unassign Task</a>
             {%endif%}
-            <button id="delete" class="btn btn-danger" onclick="GoToDeleteTask()">Delete Task</button>
+            <a id="delete" class="btn btn-danger" href="{%url 'deleteTask' task.id%}">Delete Task</a>
         {%endif%}
 
-        <script type="text/javascript">
-            function GoToAssignTask(){
-                window.location.href="{%url 'assignTask' task.id%}";
-            }
-
-            function GoToCompleteTask(){
-                window.location.href="{%url 'completeTask' task.id%}";
-            }
-
-            function GoToUnassignTask(){
-                window.location.href="{%url 'unassignTask' task.id%}";
-            }
-
-            function GoToDeleteTask(){
-                window.location.href="{%url 'deleteTask' task.id%}";
-            }
-        </script>
     </div>
 
+    <!--Comments-->
     {%for comment in taskComments%}
         
         <ul class="list-unstyled" style="margin-top: 30px;">
@@ -84,15 +72,23 @@
     {%endfor%}
 
     
-    <form action="{%url 'makeComment' task.id%}" method="POST" role="form">
+    <!--Add Comment-->
+    <form action="{%url 'makeComment' task.id%}" method="POST" role="form" id="addComment">
         {%csrf_token%}
         <legend>Comment</legend>
     
         <div class="form-group">
-            <textarea name="BodyText" class="form-control" placeholder="comment" rows="6"></textarea>
+            <textarea
+                name="BodyText"
+                class="form-control"
+                placeholder="comment"
+                rows="6"
+                id="BodyText"
+                onkeyup="commentFormIsFilled()"
+            ></textarea>
         </div>
     
-        <button type="submit" class="btn btn-primary pull-right">Comment</button>
+        <button id="submit" type="submit" class="btn btn-primary pull-right" disabled="true">Comment</button>
     </form>
     
 

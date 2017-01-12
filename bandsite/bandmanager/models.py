@@ -58,12 +58,28 @@ class TaskComment(models.Model):
 		return self.body
 
 
+
+@python_2_unicode_compatible
+class Album(models.Model):
+	band = models.ForeignKey(Band, on_delete=models.CASCADE)
+	title = models.CharField(max_length=100)
+	release_date = models.DateField(blank=True, null=True)
+	picture_url = models.CharField(max_length=200, blank=True)
+
+
+	def __str__(self):
+		return self.title
+
+
 @python_2_unicode_compatible
 class Song(models.Model):
 	band = models.ForeignKey(Band, on_delete=models.CASCADE)
+	album = models.ForeignKey(Album, null=True, blank=True)
 	title = models.CharField(max_length=100)
-	progress = models.IntegerField(default=0)
-
+	learned = models.BooleanField(default=0)
+	single = models.BooleanField(default=0)
+	picture_url = models.CharField(max_length=200, blank=True)
+	release_date = models.DateField(blank=True, null=True)
 
 	def __str__(self):
 		return self.title

@@ -1,18 +1,31 @@
 {%extends 'base.html'%}
 
 {%block content%}
-    <form action="{%url 'addtask' %}" method="POST" role="form">
+    <form action="{%url 'addtask' %}" method="POST" role="form" id="addTask">
         {%csrf_token%}
         <legend>Add Task</legend>
     
         <div class="form-group">
             <label>Title</label>
-            <input name="TaskTitle" type="text" class="form-control" placeholder="enter title here">
+            <input 
+                id="TaskTitle"
+                name="TaskTitle" type="text"
+                class="form-control"
+                placeholder="enter title here"
+                onkeyup="taskFormIsFilled()"
+            >
         </div>
 
         <div class="form-group">
             <label>Description</label>
-            <textarea name="TaskDescription" class="form-control" placeholder="enter description here" rows="6"></textarea>
+            <textarea 
+                id="TaskDescription"
+                name="TaskDescription"
+                class="form-control"
+                placeholder="enter description here"
+                rows="6"
+                onkeyup="taskFormIsFilled()"
+            ></textarea>
         </div>
 
         <div class="form-group">
@@ -35,6 +48,6 @@
             </select>
         </div>
     
-        <button type="submit" class="btn btn-primary pull-right">Submit</button>
+        <button id="submit" type="submit" class="btn btn-primary pull-right" disabled="true">Submit</button>
     </form>
 {%endblock%}

@@ -2,12 +2,7 @@
 
 {%block content%}
     <div class="container" style="margin-bottom: 10px">
-        <button type="button" class="btn btn-primary pull-right col-md-4" onclick="GoToAddTask()">Add Task</button>
-        <script type="text/javascript">
-            function GoToAddTask(){
-                window.location.href="{%url 'newtask'%}";
-            }
-        </script>
+        <a class="btn btn-primary pull-right col-md-4" href="{%url 'newtask'%}">Add Task</a>
     </div>
 
     <div class="list-group">
