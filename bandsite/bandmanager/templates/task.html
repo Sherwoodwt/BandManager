@@ -58,12 +58,18 @@
             <li class="col-md-11 col-xs-10">
                 
                 <div class="panel panel-info">
-                      <div class="panel-heading">
-                            <h3 class="panel-title">{{comment.commenter}}</h3>
-                      </div>
-                      <div class="panel-body">
-                            {{comment.body}}
-                      </div>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{comment.commenter}}</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        {{comment.body}}
+                    </div>
+                    {%if comment.commenter == user.member%}
+                        <div class="panel-footer clearfix">
+                            <a class="btn btn-danger btn-xs pull-right" href="{%url 'deleteComment' task.id comment.id%}">Delete</a>
+                        </div>
+                    {%endif%}
                 </div>
                 
             </li>
@@ -85,6 +91,7 @@
                 rows="6"
                 id="BodyText"
                 onkeyup="commentFormIsFilled()"
+                onkeydown="disable()"
             ></textarea>
         </div>
     

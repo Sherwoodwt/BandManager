@@ -95,7 +95,7 @@ def completeTask(request, task_id):
 	user = request.user
 	band = user.member.band
 	task = band.task_set.get(pk=task_id)
-	if(task.member == user.member):
+	if task.member == user.member:
 		task.completed = 1
 	task.save()
 	return HttpResponseRedirect(reverse('tasklist'))
@@ -107,7 +107,7 @@ def unassignTask(request, task_id):
 	user = request.user
 	band = user.member.band
 	task = band.task_set.get(pk=task_id)
-	if(task.member == user.member):
+	if task.member == user.member:
 		task.member = None
 	task.save()
 	return HttpResponseRedirect(reverse('task', args=[task_id]))
@@ -119,7 +119,7 @@ def deleteTask(request, task_id):
 	user = request.user
 	band = user.member.band
 	task = band.task_set.get(pk=task_id)
-	if(task.member == user.member):
+	if task.member == user.member:
 		task.delete()
 	return HttpResponseRedirect(reverse('tasklist'))
 
@@ -132,4 +132,13 @@ def makeComment(request, task_id):
 	body = request.POST['BodyText']
 	comment = TaskComment(task=task, commenter=user.member, body=body)
 	comment.save()
+	return HttpResponseRedirect(reverse('task', args=[task_id]))
+
+
+@login_required(login_url='/login/')
+def deleteComment(request, task_id, comment_id):
+	user = request.user
+	comment = TaskComment.objects.get(pk=comment_id)
+	if comment.commenter == user.member:
+		comment.delete()
 	return HttpResponseRedirect(reverse('task', args=[task_id]))

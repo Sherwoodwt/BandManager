@@ -28,3 +28,7 @@ function commentFormIsFilled() {
     var list = ['BodyText'];
     formIsFilled('addComment', list);
 }
+
+function disable() {
+    document.getElementById('submit').disabled = true;
+}
