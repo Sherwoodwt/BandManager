@@ -1,0 +1,13 @@
+Start up:
+
+sudo apt-get update -y
+sudo apt-get install apache2 libapache2-mod-wsgi -y
+sudo apt-get install python-pip -y
+sudo pip install django
+sudo apt-get install python-mysqldb -y
+sudo service apache2 restart
+sudo apt-get install awscli -y
+
+Copy code:
+
+aws s3 sync s3://bandmanager ./
