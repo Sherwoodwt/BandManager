@@ -1,27 +1,11 @@
-from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 
 from django.shortcuts import render, get_object_or_404
 
-from .models import Band, Task, Member, TaskComment
+from ..models import Band, Task, Member, TaskComment
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-
-
-@login_required(login_url='/login/')
-def index(request):
-    	return HttpResponseRedirect(reverse('band'))
-
-
-@login_required(login_url='/login/')
-def band(request):
-	user = request.user
-	band = get_object_or_404(Band, pk=user.member.band.id)
-	members = band.member_set.filter(active=1)
-	context = {"band": band, "members": members}
-	return render(request, "band.html", context)
-
 
 @login_required(login_url='/login/')
 def tasklist(request):
@@ -29,6 +13,25 @@ def tasklist(request):
 	band = get_object_or_404(Band, pk=user.member.band.id)
 	tasks = band.task_set.all()
 	context = {"band": band, "tasks": tasks}
+	return render(request, "tasklist.html", context)
+
+
+@login_required(login_url='/login/')
+def filterTasklist(request):
+	user = request.user
+	band = get_object_or_404(Band, pk=user.member.band.id)
+	filterType = request.POST['filterSelector']
+	context = {"band": band, "filterType": filterType}
+	if filterType == 'Yours':
+		context['tasks'] = band.task_set.filter(member=user.member)
+	elif filterType == 'Completed':
+		context['tasks'] = band.task_set.filter(completed=1)
+	elif filterType == 'NotCompleted':
+		context['tasks'] = band.task_set.filter(completed=0)
+	elif filterType == 'Unassigned':
+		context['tasks'] = band.task_set.filter(member=None)
+	else:
+		return HttpResponseRedirect(reverse('tasklist'))
 	return render(request, "tasklist.html", context)
 
 

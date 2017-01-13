@@ -2,7 +2,21 @@
 
 {%block content%}
     <div class="container" style="margin-bottom: 10px">
-        <a class="btn btn-primary pull-right col-md-4" href="{%url 'newtask'%}">Add Task</a>
+        <form action="{%url 'filterTasklist'%}" method="POST" role="form">
+            {%csrf_token%}
+            <select name="filterSelector">
+                <option value="None" href>None</option>
+                <option value="Yours">Your Tasks</option>
+                <option value="Completed">Completed</option>
+                <option value="NotCompleted">Not Completed</option>
+                <option value="Unassigned">Unassigned</option>
+            </select>
+            <button type="submit" class="btn">Apply Filter</button>
+            {%if filterType%}
+                <h3 class="label" style="color: black">Filter: {{filterType}}</h3>
+            {%endif%}
+        </form>
+        <a class="btn btn-primary pull-right col-md-2" href="{%url 'newtask'%}">Add Task</a>
     </div>
 
     <div class="list-group">
