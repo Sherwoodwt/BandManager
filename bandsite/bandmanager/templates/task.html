@@ -41,7 +41,7 @@
         {%elif task.member == user.member%}
             {%if not task.completed%}
                 <a id="complete" class="btn btn-primary" href="{%url 'completeTask' task.id%}">Complete Task</a>
-                <a id="unassign" class="btn" href="{%url 'unassignTask' task.id%}">Unassign Task</a>
+                <a id="unassign" class="btn btn-default" href="{%url 'unassignTask' task.id%}">Unassign Task</a>
             {%endif%}
             <a id="delete" class="btn btn-danger" href="{%url 'deleteTask' task.id%}">Delete Task</a>
         {%endif%}

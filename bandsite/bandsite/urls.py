@@ -16,13 +16,19 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth.views import login, logout
+from django.views.generic.edit import CreateView
+from django.contrib.auth.forms import UserCreationForm
 
-## since band manager is the only app I will be using right now, I am going to default
-## my site url right to bandmanager
 
 urlpatterns = [
 	url(r'^bandmanager/', include('bandmanager.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^login/$', login, name='login'),
-    url(r'^logout/$', logout, name='logout')
+    url(r'^login/$', login, {'template_name': 'login.html'}),
+    url(r'^logout/$', logout, name='logout'),
+    url(r'^signup/$', CreateView.as_view(
+        template_name='signup.html',
+        form_class=UserCreationForm,
+        success_url='/login/'
+    ), name='signup'),
+    url('^accounts/', include('django.contrib.auth.urls')),
 ]

@@ -22,3 +22,6 @@ def band(request):
 	return render(request, "band.html", context)
 
 
+@login_required(login_url='/login')
+def createmember(request):
+	return HttpResponse("made it bois")

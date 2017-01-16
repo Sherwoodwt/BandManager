@@ -7,6 +7,7 @@ from views import views, taskviews
 urlpatterns = [
 	url(r'^$', views.index, name='index'),
 	url(r'^band/$', views.band, name='band'),
+	url(r'^createmember/$', views.createmember, name='createmember'),
 	url(r'^tasklist/$', taskviews.tasklist, name='tasklist'),
 	url(r'^tasklist/filter/$', taskviews.filterTasklist, name='filterTasklist'),
 	url(r'^newtask/$', taskviews.newtask, name='newtask'),
@@ -17,5 +18,5 @@ urlpatterns = [
 	url(r'^unassignTask/(?P<task_id>[0-9]+)/$', taskviews.unassignTask, name='unassignTask'),
 	url(r'^deleteTask/(?P<task_id>[0-9]+)/$', taskviews.deleteTask, name='deleteTask'),
 	url(r'^makeComment/(?P<task_id>[0-9]+)/$', taskviews.makeComment, name='makeComment'),
-	url(r'^task/(?P<task_id>[0-9]+)/deleteComment/(?P<comment_id>[0-9]+)/$', taskviews.deleteComment, name='deleteComment')
+	url(r'^task/(?P<task_id>[0-9]+)/deleteComment/(?P<comment_id>[0-9]+)/$', taskviews.deleteComment, name='deleteComment'),
 ]
