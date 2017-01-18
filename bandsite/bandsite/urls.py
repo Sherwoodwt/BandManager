@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth.views import login, logout
 from django.views.generic.edit import CreateView
-from django.contrib.auth.forms import UserCreationForm
+from forms import SignupForm
 
 
 urlpatterns = [
@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^logout/$', logout, name='logout'),
     url(r'^signup/$', CreateView.as_view(
         template_name='signup.html',
-        form_class=UserCreationForm,
+        form_class=SignupForm,
         success_url='/login/'
     ), name='signup'),
     url('^accounts/', include('django.contrib.auth.urls')),
