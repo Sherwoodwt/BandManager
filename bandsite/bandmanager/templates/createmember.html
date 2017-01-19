@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create Member</title>
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            
+            <form action="{%url 'makeMemberObject'%}" method="POST" role="form">
+                {%csrf_token%}
+                <legend>Which Band?</legend>
+            
+                <div class="form-group">
+                    <label for="">Band: </label>
+                    <select name="selectedBand">
+                        {%for band in bands%}
+                            <option value="{{band.pk}}">{{band.name}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Image: </label>
+                    <select name="selectedPicture">
+                        <option value="https://s3-us-west-2.amazonaws.com/bandmanagerimages/blue.png">
+                            <img src="https://s3-us-west-2.amazonaws.com/bandmanagerimages/blue.png">
+                        </option>
+                        <option value="https://s3-us-west-2.amazonaws.com/bandmanagerimages/green.png">
+                            <img src="https://s3-us-west-2.amazonaws.com/bandmanagerimages/green.png">
+                        </option>
+                        <option value="https://s3-us-west-2.amazonaws.com/bandmanagerimages/orange.png">
+                            <img src="https://s3-us-west-2.amazonaws.com/bandmanagerimages/orange.png">
+                        </option>
+                        <option value="https://s3-us-west-2.amazonaws.com/bandmanagerimages/purple.png">
+                            <img src="https://s3-us-west-2.amazonaws.com/bandmanagerimages/purple.png">
+                        </option>
+                        <option value="https://s3-us-west-2.amazonaws.com/bandmanagerimages/red.png">
+                            <img src="https://s3-us-west-2.amazonaws.com/bandmanagerimages/red.png">
+                        </option>
+                    </select>
+                </div>
+            
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            
+        </div>
+    </body>
+</html>

@@ -22,6 +22,18 @@ def band(request):
 	return render(request, "band.html", context)
 
 
-@login_required(login_url='/login')
+# after django registration form registers users, member creation form is displayed
 def createmember(request):
-	return HttpResponse("made it bois")
+	user = request.user
+	bandList = Band.objects.all()
+	context = {"bands": bandList}
+	return render(request, "createmember.html", context)
+
+# creates and saves member based on input from createmember
+def makeMemberObject(request):
+	user = request.user
+	selectedBand = request.POST['selectedBand']
+	selectedPicture = request.POST['selectedPicture']
+	newMember = Member(band=Band.objects.get(pk=selectedBand), user=user, name=user.username, contact_info=user.email, picture_url=selectedPicture)
+	newMember.save()
+	return reverse('band')
