@@ -7,8 +7,6 @@ from views import views, taskviews
 urlpatterns = [
 	url(r'^$', views.index, name='index'),
 	url(r'^band/$', views.band, name='band'),
-	url(r'^createmember/$', views.createmember, name='create_member'),
-	url(r'^makemember/$', views.makeMemberObject, name='makeMemberObject'),
 	url(r'^tasklist/$', taskviews.tasklist, name='tasklist'),
 	url(r'^tasklist/filter/$', taskviews.filterTasklist, name='filterTasklist'),
 	url(r'^newtask/$', taskviews.newtask, name='newtask'),

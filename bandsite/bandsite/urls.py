@@ -28,7 +28,7 @@ urlpatterns = [
     url(r'^signup/$', CreateView.as_view(
         template_name='signup.html',
         form_class=SignupForm,
-        success_url='/bandmanager/createmember/'
+        success_url='/bandmanager/band/'
     ), name='signup'),
     url('^accounts/', include('django.contrib.auth.urls')),
 ]

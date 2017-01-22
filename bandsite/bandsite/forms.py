@@ -9,16 +9,25 @@ from bandmanager.models import Member, Band
 
 class SignupForm(UserCreationForm):
     
+    colorList = [
+        ("https://s3-us-west-2.amazonaws.com/bandmanagerimages/blue.png", "blue"),
+        ("https://s3-us-west-2.amazonaws.com/bandmanagerimages/red.png", "red"),
+        ("https://s3-us-west-2.amazonaws.com/bandmanagerimages/green.png", "green"),
+        ("https://s3-us-west-2.amazonaws.com/bandmanagerimages/orange.png", "orange"),
+        ("https://s3-us-west-2.amazonaws.com/bandmanagerimages/purple.png", "purple")
+    ]
+
     def getBands():
         bandList = []
         for eachBand in Band.objects.all():
             bandList.append((eachBand.pk, eachBand.name))
         return bandList
-        
+
     email = forms.EmailField(label='Email', required=True)
     firstName = forms.CharField(label='First Name', max_length=30)
     lastName = forms.CharField(label='Last Name', max_length=30)
     band = forms.ChoiceField(widget=forms.Select, choices=getBands())
+    picture = forms.ChoiceField(widget=forms.Select, choices=colorList)
 
     class Meta:
         model = User
@@ -32,7 +41,8 @@ class SignupForm(UserCreationForm):
         if commit:
             user.save()
         # Create Member
-        newBand = self.cleaned_data["band"]
+        newBandId = self.cleaned_data["band"]
+        newBand = Band.objects.get(pk=newBandId)
         username = user.username
         pic = self.cleaned_data["picture"]
         member = Member(band=newBand, name=username, user=user, picture_url=pic, contact_info=user.email)
